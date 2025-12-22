@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 type FaqTopic =
   | "purchase"
@@ -90,13 +90,96 @@ const faqCards: FaqCard[] = [
 export default function Home() {
   const [activeCard, setActiveCard] = useState<FaqCard | null>(null);
   const [showFeedbackPrompt, setShowFeedbackPrompt] = useState(false);
+  const [videoEnded, setVideoEnded] = useState(false);
   const [feedbackChoice, setFeedbackChoice] = useState<"yes" | "no" | null>(
     null
   );
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#020617] via-[#020617] to-[#0B1120] text-slate-50">
-      <div className="mx-auto flex min-h-screen max-w-6xl flex-col px-4 pb-10 pt-10 sm:px-6 lg:px-8">
+    <div className="relative min-h-screen overflow-hidden bg-gradient-to-b from-[#020617] via-[#020617] to-[#0B1120] text-slate-50">
+      {/* Background Image - Full Page */}
+      <div
+        className="pointer-events-none fixed inset-0 z-0"
+        style={{
+          backgroundImage: 'url("/bg.png")',
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          opacity: 0.7,
+        }}
+      />
+      
+      {/* Gradient Overlay */}
+      <div className="pointer-events-none fixed inset-0 z-[1] bg-gradient-to-b from-[#020617]/60 via-[#020617]/50 to-[#0B1120]/60" />
+      
+      {/* Shooting Stars */}
+      {[...Array(6)].map((_, i) => (
+        <div
+          key={`star-${i}`}
+          className="shooting-star pointer-events-none fixed z-0 h-[2px] w-[100px] bg-gradient-to-r from-transparent via-yellow-300 to-transparent"
+          style={{
+            top: `${Math.random() * 30}%`,
+            left: `${Math.random() * 30}%`,
+            animationDelay: `${i * 0.5}s`,
+            animationDuration: `${3 + Math.random() * 2}s`,
+          }}
+        />
+      ))}
+      
+      {/* Smoke Particles - More and More Visible */}
+      {[...Array(15)].map((_, i) => (
+        <div
+          key={`smoke-${i}`}
+          className="smoke-particle pointer-events-none fixed z-0 rounded-full"
+          style={{
+            width: `${40 + Math.random() * 60}px`,
+            height: `${40 + Math.random() * 60}px`,
+            background: `radial-gradient(circle, rgba(150,150,150,0.6) 0%, rgba(100,100,100,0.3) 40%, transparent 70%)`,
+            bottom: `${Math.random() * 30}%`,
+            left: `${Math.random() * 100}%`,
+            animationDelay: `${i * 0.6}s`,
+            animationDuration: `${6 + Math.random() * 6}s`,
+            opacity: 0.4,
+            filter: "blur(8px)",
+          }}
+        />
+      ))}
+      
+      {/* Additional Smoke Trails */}
+      {[...Array(10)].map((_, i) => (
+        <div
+          key={`smoke-trail-${i}`}
+          className="smoke-particle pointer-events-none fixed z-0 rounded-full"
+          style={{
+            width: `${60 + Math.random() * 80}px`,
+            height: `${60 + Math.random() * 80}px`,
+            background: `radial-gradient(ellipse, rgba(120,120,120,0.5) 0%, rgba(80,80,80,0.2) 50%, transparent 80%)`,
+            bottom: `${Math.random() * 25}%`,
+            left: `${Math.random() * 100}%`,
+            animationDelay: `${i * 0.8}s`,
+            animationDuration: `${10 + Math.random() * 8}s`,
+            opacity: 0.35,
+            filter: "blur(12px)",
+          }}
+        />
+      ))}
+      
+      {/* Floating Light Elements */}
+      {[...Array(4)].map((_, i) => (
+        <div
+          key={`light-${i}`}
+          className="float-element pointer-events-none fixed z-0 h-2 w-2 rounded-full bg-yellow-300/60 blur-sm"
+          style={{
+            top: `${20 + Math.random() * 60}%`,
+            left: `${10 + Math.random() * 80}%`,
+            animationDelay: `${i * 1.5}s`,
+            boxShadow: "0 0 20px rgba(250, 204, 21, 0.6)",
+          }}
+        />
+      ))}
+      
+      <div className="relative z-10 mx-auto flex min-h-screen max-w-6xl flex-col px-4 pb-10 pt-10 sm:px-6 lg:px-8">
         <header className="rounded-3xl bg-gradient-to-r from-[#38BDF8] via-[#6366F1] to-[#FACC15] p-[1px] shadow-[0_24px_80px_rgba(15,23,42,0.9)]">
           <div className="relative flex flex-col gap-4 overflow-hidden rounded-[1.4rem] bg-gradient-to-r from-[#0F172A] via-[#111827] to-[#020617] px-6 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-8 sm:py-6">
             <div className="pointer-events-none absolute -right-10 top-0 h-40 w-40 rounded-full bg-gradient-to-tr from-yellow-400/30 via-orange-400/10 to-transparent blur-2xl" />
@@ -135,6 +218,7 @@ export default function Home() {
                   onClick={() => {
                     setActiveCard(card);
                     setShowFeedbackPrompt(false);
+                    setVideoEnded(false);
                     setFeedbackChoice(null);
                   }}
                   className="group relative flex h-40 flex-col justify-center overflow-hidden rounded-2xl border border-slate-700/80 bg-gradient-to-br from-slate-800 via-slate-900 to-slate-950 px-4 py-4 text-left shadow-[0_18px_60px_rgba(15,23,42,0.95)] transition hover:-translate-y-1 hover:border-yellow-300/90 hover:shadow-[0_26px_90px_rgba(250,204,21,0.75)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-300/90"
@@ -236,6 +320,7 @@ export default function Home() {
           onClick={() => {
             setActiveCard(null);
             setShowFeedbackPrompt(false);
+            setVideoEnded(false);
             setFeedbackChoice(null);
           }}
         >
@@ -248,6 +333,7 @@ export default function Home() {
               onClick={() => {
                 setActiveCard(null);
                 setShowFeedbackPrompt(false);
+                setVideoEnded(false);
                 setFeedbackChoice(null);
               }}
               className="absolute right-3 top-3 z-10 inline-flex h-8 w-8 items-center justify-center rounded-full bg-black/70 text-xs text-zinc-300 shadow-md shadow-black/80 hover:bg-black hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300"
@@ -255,31 +341,36 @@ export default function Home() {
               ✕
             </button>
 
-            <div className="relative w-full bg-black sm:w-1/2">
-              {activeCard.videoSrc ? (
+            {!videoEnded && activeCard.videoSrc && (
+              <div className="relative w-full bg-black sm:w-1/2">
                 <video
+                  ref={videoRef}
                   className="h-full w-full object-cover"
                   src={activeCard.videoSrc}
                   autoPlay
                   playsInline
                   onEnded={() => {
+                    setVideoEnded(true);
                     setShowFeedbackPrompt(true);
                     setFeedbackChoice(null);
                   }}
                 >
                   Your browser does not support the video tag.
                 </video>
-              ) : (
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/40" />
+              </div>
+            )}
+            {!videoEnded && !activeCard.videoSrc && (
+              <div className="relative w-full bg-black sm:w-1/2">
                 <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
                   <p className="text-xs font-medium uppercase tracking-[0.22em] text-slate-400">
                     Video coming soon
-          </p>
-        </div>
-              )}
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/40" />
-            </div>
+                  </p>
+                </div>
+              </div>
+            )}
 
-            <div className="flex w-full flex-1 flex-col gap-3 bg-white p-5 sm:w-1/2 sm:p-6">
+            <div className={`flex w-full flex-1 flex-col gap-3 bg-white p-5 sm:p-6 ${videoEnded ? 'sm:w-full' : 'sm:w-1/2'}`}>
               <p className="text-xs font-semibold uppercase tracking-[0.22em] text-violet-500">
                 {activeCard.title}
               </p>
@@ -289,10 +380,12 @@ export default function Home() {
               <p className="mt-1 text-sm leading-relaxed text-slate-700">
                 {activeCard.answer}
               </p>
-              <div className="mt-3 flex items-center gap-2 text-xs text-slate-500">
-                <span className="inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
-                <span>Step‑by‑step walkthrough with a short explainer video.</span>
-              </div>
+              {!videoEnded && (
+                <div className="mt-3 flex items-center gap-2 text-xs text-slate-500">
+                  <span className="inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                  <span>Step‑by‑step walkthrough with a short explainer video.</span>
+                </div>
+              )}
 
               {showFeedbackPrompt && (
                 <div className="mt-5 rounded-2xl border border-slate-200/20 bg-slate-50/80 p-4 text-xs text-slate-800 shadow-[0_10px_30px_rgba(15,23,42,0.3)]">
@@ -303,6 +396,23 @@ export default function Home() {
                     Is your issue resolved after watching this video?
                   </p>
                   <div className="mt-3 flex flex-wrap gap-2">
+                    {activeCard.videoSrc && (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setVideoEnded(false);
+                          setShowFeedbackPrompt(false);
+                          setFeedbackChoice(null);
+                          if (videoRef.current) {
+                            videoRef.current.currentTime = 0;
+                            videoRef.current.play();
+                          }
+                        }}
+                        className="inline-flex items-center justify-center rounded-full border border-violet-300 bg-violet-100 px-4 py-1.5 text-xs font-semibold text-violet-900 shadow-sm shadow-violet-300/60 transition hover:bg-violet-200"
+                      >
+                        Replay video
+                      </button>
+                    )}
                     <button
                       type="button"
                       onClick={() => setFeedbackChoice("yes")}

@@ -51,7 +51,7 @@ const faqCards: FaqCard[] = [
     description: "Where and how your gift cards or top-ups can be used.",
     answer:
       "Each product page lists supported platforms, regions, and any usage restrictions. Always check these details before purchasing to make sure the code is compatible with your account region and device.",
-    // no video yet
+    videoSrc: "/Usage vid.mp4",
   },
   {
     id: "expiry",
@@ -97,7 +97,7 @@ export default function Home() {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-gradient-to-b from-[#020617] via-[#020617] to-[#0B1120] text-slate-50">
+    <div className="relative min-h-screen overflow-hidden bg-gradient-to-b from-[#0b0b12] via-[#11111c] to-[#0b0b12] text-slate-50">
       {/* Background Image - Full Page */}
       <div
         className="pointer-events-none fixed inset-0 z-0"
@@ -111,7 +111,7 @@ export default function Home() {
       />
       
       {/* Gradient Overlay */}
-      <div className="pointer-events-none fixed inset-0 z-[1] bg-gradient-to-b from-[#020617]/60 via-[#020617]/50 to-[#0B1120]/60" />
+      <div className="pointer-events-none fixed inset-0 z-[1] bg-gradient-to-b from-[#0d0f24]/55 via-[#0b0b12]/45 to-[#0d0f24]/65" />
       
       {/* Shooting Stars */}
       {[...Array(6)].map((_, i) => (
@@ -179,18 +179,18 @@ export default function Home() {
         />
       ))}
       
-      <div className="relative z-10 mx-auto flex min-h-screen max-w-6xl flex-col px-4 pb-10 pt-10 sm:px-6 lg:px-8">
-        <header className="rounded-3xl bg-gradient-to-r from-[#38BDF8] via-[#6366F1] to-[#FACC15] p-[1px] shadow-[0_24px_80px_rgba(15,23,42,0.9)]">
-          <div className="relative flex flex-col gap-4 overflow-hidden rounded-[1.4rem] bg-gradient-to-r from-[#0F172A] via-[#111827] to-[#020617] px-6 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-8 sm:py-6">
-            <div className="pointer-events-none absolute -right-10 top-0 h-40 w-40 rounded-full bg-gradient-to-tr from-yellow-400/30 via-orange-400/10 to-transparent blur-2xl" />
+      <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-6xl flex-col px-4 pb-16 pt-8 sm:px-6 lg:px-8">
+        <header className="rounded-3xl bg-gradient-to-r from-[#ff8b5f] via-[#c55bff] to-[#6e6bff] p-[1px] shadow-[0_24px_80px_rgba(10,10,20,0.8)]">
+          <div className="relative flex flex-col gap-4 overflow-hidden rounded-[1.4rem] bg-gradient-to-r from-[#161524] via-[#17172b] to-[#11111c] px-5 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-8 sm:py-6">
+            <div className="pointer-events-none absolute -right-10 top-0 h-40 w-40 rounded-full bg-gradient-to-tr from-[#ffb347]/30 via-[#c55bff]/12 to-transparent blur-2xl" />
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-sky-300">
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#8de7ff]">
                 Swag Help Center
               </p>
-              <h1 className="mt-2 text-2xl font-semibold tracking-tight text-slate-50 sm:text-3xl">
+              <h1 className="mt-2 text-2xl font-semibold tracking-tight text-white drop-shadow-[0_2px_18px_rgba(255,255,255,0.35)] sm:text-3xl">
                 Gift Cards &amp; Top‑ups FAQ
           </h1>
-              <p className="mt-2 max-w-xl text-sm text-slate-300">
+              <p className="mt-2 max-w-xl text-sm text-slate-200">
                 Learn how purchases, delivery, security, and support work for
                 Swag gift cards and gaming top‑ups.
               </p>
@@ -199,32 +199,32 @@ export default function Home() {
         </header>
 
         <main className="mt-8 flex-1">
-          <section className="mx-auto max-w-4xl rounded-3xl border border-slate-800/80 bg-gradient-to-b from-slate-900/90 via-slate-900/90 to-slate-950/95 p-5 shadow-[0_30px_120px_rgba(15,23,42,0.95)] backdrop-blur-xl sm:p-6 lg:p-8">
+          <section className="mx-auto max-w-4xl rounded-[28px] border border-white/8 bg-gradient-to-br from-[#121124] via-[#141428] to-[#0f0f1f] p-4 shadow-[0_30px_120px_rgba(8,8,20,0.85)] backdrop-blur-xl sm:p-6 lg:p-8">
             <div className="mb-6">
-              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-sky-300">
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#8de7ff]">
                 Browse topics
               </p>
-              <p className="mt-1 text-sm text-slate-300">
+              <p className="mt-1 text-sm text-slate-200">
                 Pick a card to watch a quick walkthrough and read the detailed
                 FAQ in full screen.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5">
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-5">
               {faqCards.map((card) => (
                 <button
                   key={card.id}
                   type="button"
                   onClick={() => {
                     setActiveCard(card);
-                    setShowFeedbackPrompt(false);
+                    setShowFeedbackPrompt(true);
                     setVideoEnded(false);
                     setFeedbackChoice(null);
                   }}
-                  className="group relative flex h-40 flex-col justify-center overflow-hidden rounded-2xl border border-slate-700/80 bg-gradient-to-br from-slate-800 via-slate-900 to-slate-950 px-4 py-4 text-left shadow-[0_18px_60px_rgba(15,23,42,0.95)] transition hover:-translate-y-1 hover:border-yellow-300/90 hover:shadow-[0_26px_90px_rgba(250,204,21,0.75)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-300/90"
+                  className="group relative flex h-36 flex-col justify-center overflow-hidden rounded-[22px] border border-white/10 bg-gradient-to-br from-[#1d1730] via-[#1b1735] to-[#151425] px-4 py-4 text-left shadow-[0_18px_60px_rgba(8,8,20,0.9)] transition hover:-translate-y-1 hover:border-[#ff8b5f]/80 hover:shadow-[0_26px_90px_rgba(255,139,95,0.55)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ff8b5f]/80 sm:h-40"
                 >
-                  <div className="pointer-events-none absolute inset-px rounded-[1.05rem] border border-yellow-300/40 opacity-0 shadow-[0_0_40px_rgba(250,204,21,0.65)] transition-opacity group-hover:opacity-100" />
-                  <div className="pointer-events-none absolute -right-8 -top-6 h-28 w-28 rounded-full bg-yellow-300/30 blur-2xl group-hover:bg-yellow-200/50" />
+                  <div className="pointer-events-none absolute inset-px rounded-[1.05rem] border border-[#ffb347]/40 opacity-0 shadow-[0_0_40px_rgba(255,179,71,0.65)] transition-opacity group-hover:opacity-100" />
+                  <div className="pointer-events-none absolute -right-8 -top-6 h-28 w-28 rounded-full bg-[#ff5fff]/30 blur-2xl group-hover:bg-[#ffb347]/40" />
                   {card.id === "purchase" && (
                     <div
                       className="pointer-events-none absolute inset-0 opacity-50 mix-blend-screen"
@@ -285,6 +285,16 @@ export default function Home() {
                       }}
                     />
                   )}
+                  {card.id === "usage" && (
+                    <div
+                      className="pointer-events-none absolute inset-0 opacity-50 mix-blend-screen"
+                      style={{
+                        backgroundImage: 'url("/Usage.png")',
+                        backgroundSize: "cover",
+                        backgroundPosition: "right center",
+                      }}
+                    />
+                  )}
                   {card.id === "support" && (
                     <div
                       className="pointer-events-none absolute inset-0 opacity-50 mix-blend-screen"
@@ -295,11 +305,11 @@ export default function Home() {
                       }}
                     />
                   )}
-                  <div className="relative flex items-center justify-between">
-                    <h2 className="text-lg font-semibold tracking-wide text-slate-50 drop-shadow-[0_0_15px_rgba(0,0,0,0.8)]">
+                  <div className="relative flex w-full items-center justify-center px-2 text-center">
+                    <h2 className="text-xl sm:text-lg font-semibold tracking-wide text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.55)]">
                       {card.title}
                     </h2>
-                    <span className="inline-flex items-center gap-1 rounded-full bg-black/60 px-3 py-1 text-[10px] font-semibold uppercase tracking-wide text-yellow-300 shadow-[0_8px_24px_rgba(0,0,0,0.85)] group-hover:bg-black/80">
+                    <span className="absolute bottom-3 right-3 inline-flex items-center gap-1 rounded-full bg-gradient-to-r from-[#ff8b5f] to-[#c55bff] px-3 py-1 text-[10px] font-semibold uppercase tracking-wide text-white shadow-[0_8px_24px_rgba(0,0,0,0.55)] group-hover:brightness-110">
                       Tap to view
                     </span>
                   </div>
@@ -325,7 +335,7 @@ export default function Home() {
           }}
         >
           <div
-            className="relative flex max-h-[90vh] w-full max-w-5xl flex-col overflow-hidden rounded-3xl border border-white/10 bg-zinc-950 shadow-[0_32px_100px_rgba(0,0,0,0.9)] sm:flex-row"
+            className="relative flex max-h-[90vh] w-full max-w-5xl flex-col overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-[#121124] via-[#141428] to-[#0f0f1f] shadow-[0_32px_100px_rgba(4,4,12,0.9)] sm:flex-row"
             onClick={(event) => event.stopPropagation()}
           >
             <button
@@ -365,34 +375,34 @@ export default function Home() {
                 <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
                   <p className="text-xs font-medium uppercase tracking-[0.22em] text-slate-400">
                     Video coming soon
-                  </p>
-                </div>
+          </p>
+        </div>
               </div>
             )}
 
-            <div className={`flex w-full flex-1 flex-col gap-3 bg-white p-5 sm:p-6 ${videoEnded ? 'sm:w-full' : 'sm:w-1/2'}`}>
-              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-violet-500">
+            <div className={`flex w-full flex-1 flex-col gap-3 bg-transparent p-5 sm:p-6 ${videoEnded ? "sm:w-full" : "sm:w-1/2"}`}>
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#8de7ff]">
                 {activeCard.title}
               </p>
-              <h2 className="text-lg font-semibold text-slate-900">
+              <h2 className="text-lg font-semibold text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.35)]">
                 {activeCard.description}
               </h2>
-              <p className="mt-1 text-sm leading-relaxed text-slate-700">
+              <p className="mt-1 text-sm leading-relaxed text-slate-200">
                 {activeCard.answer}
               </p>
               {!videoEnded && (
-                <div className="mt-3 flex items-center gap-2 text-xs text-slate-500">
+                  <div className="mt-3 flex items-center gap-2 text-xs text-slate-300">
                   <span className="inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
                   <span>Step‑by‑step walkthrough with a short explainer video.</span>
                 </div>
               )}
 
               {showFeedbackPrompt && (
-                <div className="mt-5 rounded-2xl border border-slate-200/20 bg-slate-50/80 p-4 text-xs text-slate-800 shadow-[0_10px_30px_rgba(15,23,42,0.3)]">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">
+                <div className="mt-5 rounded-2xl border border-white/10 bg-gradient-to-br from-[#15162e]/90 via-[#0f1024]/90 to-[#0b0c1d]/95 p-4 text-xs text-slate-100 shadow-[0_10px_40px_rgba(4,4,12,0.55)]">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#8de7ff]">
                     Quick check‑in
                   </p>
-                  <p className="mt-1 text-sm font-medium">
+                  <p className="mt-1 text-sm font-medium text-white">
                     Is your issue resolved after watching this video?
                   </p>
                   <div className="mt-3 flex flex-wrap gap-2">
@@ -401,14 +411,14 @@ export default function Home() {
                         type="button"
                         onClick={() => {
                           setVideoEnded(false);
-                          setShowFeedbackPrompt(false);
+                          setShowFeedbackPrompt(true);
                           setFeedbackChoice(null);
                           if (videoRef.current) {
                             videoRef.current.currentTime = 0;
                             videoRef.current.play();
                           }
                         }}
-                        className="inline-flex items-center justify-center rounded-full border border-violet-300 bg-violet-100 px-4 py-1.5 text-xs font-semibold text-violet-900 shadow-sm shadow-violet-300/60 transition hover:bg-violet-200"
+                        className="inline-flex items-center justify-center rounded-full border border-[#b388ff]/50 bg-gradient-to-r from-[#8a63ff] to-[#f14cff] px-4 py-1.5 text-xs font-semibold text-white shadow-[0_6px_24px_rgba(241,76,255,0.35)] transition hover:brightness-110"
                       >
                         Replay video
                       </button>
@@ -416,32 +426,21 @@ export default function Home() {
                     <button
                       type="button"
                       onClick={() => setFeedbackChoice("yes")}
-                      className="inline-flex items-center justify-center rounded-full bg-emerald-500 px-4 py-1.5 text-xs font-semibold text-white shadow-sm shadow-emerald-500/50 transition hover:bg-emerald-600"
+                      className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#1bd96a] to-[#14c45a] px-4 py-1.5 text-xs font-semibold text-white shadow-[0_6px_24px_rgba(20,196,90,0.35)] transition hover:brightness-110"
                     >
                       Yes, all good
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setFeedbackChoice("no")}
-                      className="inline-flex items-center justify-center rounded-full border border-slate-300 bg-white px-4 py-1.5 text-xs font-semibold text-slate-800 shadow-sm transition hover:border-slate-400 hover:bg-slate-50"
-                    >
-                      Not really
                     </button>
                     <button
                       type="button"
                       onClick={() => {
                         setFeedbackChoice("no");
                         if (typeof window !== "undefined") {
-                          window.open(
-                            "mailto:swag-support@company.com?subject=Need help with " +
-                              encodeURIComponent(activeCard.title),
-                            "_blank"
-                          );
+                          window.open("https://example.com/ai-chatbot", "_blank");
                         }
                       }}
-                      className="inline-flex items-center justify-center rounded-full border border-amber-300 bg-amber-100 px-4 py-1.5 text-xs font-semibold text-amber-900 shadow-sm shadow-amber-300/60 transition hover:bg-amber-200"
+                      className="inline-flex items-center justify-center rounded-full border border-slate-500/60 bg-gradient-to-r from-[#1f243a] via-[#2c3148] to-[#ff874f] px-4 py-1.5 text-xs font-semibold text-slate-100 shadow-[0_6px_24px_rgba(0,0,0,0.35)] transition hover:brightness-110"
                     >
-                      Connect to agent
+                      Need more help (AI assistant)
                     </button>
                   </div>
 
